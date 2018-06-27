@@ -1,5 +1,5 @@
 {
-    "name": "martingold\templater",
+    "name": "martingold/templater",
     "type": "library",
     "license": "MIT 2.0",
     "minimum-stability": "stable",
