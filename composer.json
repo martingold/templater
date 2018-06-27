@@ -15,7 +15,7 @@
     },
     "autoload": {
         "psr-4": {
-            "SoftGate\\NetteUtils\\": "src"
+            "MartinGold\\Templater\\": "src"
         }
     }
 }
