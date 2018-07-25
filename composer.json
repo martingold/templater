@@ -15,7 +15,11 @@
     },
     "autoload": {
         "psr-4": {
-            "MartinGold\\Templater\\": "src"
+            "MartinGold\\Templater\\": "src",
+            "MartinGold\\Templater\\Spec\\": "spec"
         }
+    },
+    "require-dev": {
+        "kahlan/kahlan": "^4.1"
     }
 }

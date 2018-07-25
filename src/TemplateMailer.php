@@ -21,9 +21,9 @@ class TemplateMailer {
     private $mailer;
 
     /**
-     * @var string
+     * @var string|null
      */
-    private $cssPath = '';
+    private $css;
     /**
      * @var \MartinGold\Templater\LatteRenderer
      */
@@ -39,7 +39,7 @@ class TemplateMailer {
      */
     public function send(Message $message, string $templateName, array $params): void {
         $html = $this->latteRenderer->render($templateName, $params);
-        $html = $this->latteRenderer->emogrify($html, $this->cssPath);
+        $html = $this->latteRenderer->emogrify($html, $this->css);
         $message->setHtmlBody($html);
         $this->mailer->send($message);
     }
@@ -49,7 +49,13 @@ class TemplateMailer {
     }
 
     public function setCssPath(?string $cssPath): void{
-            $this->cssPath = Utils::path($cssPath);
+        $this->css = $this->getCss(Utils::path($cssPath));
+    }
+
+    private function getCss(string $cssPath): ?string {
+        if(file_exists($cssPath)) {
+            return file_get_contents($cssPath);
+        }
     }
 
 }

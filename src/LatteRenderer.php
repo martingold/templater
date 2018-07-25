@@ -36,16 +36,13 @@ class LatteRenderer {
     /**
      * Inline external and <style> CSS to each element
      */
-    public function emogrify(string $html, $cssPath): string {
-        $emogrifier = new Emogrifier($html);
-        if(file_exists($cssPath)) {
-            $emogrifier->setCss(file_get_contents($cssPath));
-        }
-        return $emogrifier->emogrify();
+    public function emogrify(string $html, ?string $css): string {
+        $emogrifier = new Emogrifier($html, $css);
+        return $emogrifier->emogrifyBodyContent();
     }
 
     public function setTemplatePath(string $templatePath): void {
-         $this->templatePath = Utils::path($templatePath);
+        $this->templatePath = Utils::path($templatePath);
     }
 
 }

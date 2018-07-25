@@ -14,7 +14,7 @@ class TemplateNotFoundException extends FileNotFoundException {
     }
 
     public function __toString() {
-        return sprintf('Template %s not found in %s', basename($this->path), $this->path);
+        return sprintf('Template %s not found in %s', basename($this->path), dirname($this->path));
     }
 
 }
