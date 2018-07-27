@@ -1,6 +1,4 @@
-# Nette utils
-
-Collection of useful features for developing nette-based apps
+# Templater
 
 ## Features
 
@@ -13,11 +11,11 @@ for each element is nasty.
 
 ```php
  $message = (new \Nette\Mail\Message())
-    ->setSubject('Nová zpráva')
+    ->setSubject('Hello!')
     ->setTo('test@test.tld');
     
  $this->templateMailer->send('messageTemplate', $message, [
-    'name' => 'Jiří novák',
+    'name' => 'John Doe',
     'items' => ...
  ]);
 ```
