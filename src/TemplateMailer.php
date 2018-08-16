@@ -49,13 +49,13 @@ class TemplateMailer {
     }
 
     public function setCssPath(?string $cssPath): void{
-        $this->css = $this->getCss(Utils::path($cssPath));
+        if($cssPath !== null) {
+            $this->css = $this->getCss(Utils::path($cssPath));
+        }
     }
 
     private function getCss(string $cssPath): ?string {
-        if(file_exists($cssPath)) {
-            return file_get_contents($cssPath);
-        }
+        return file_exists($cssPath) && is_file($cssPath) ? file_get_contents($cssPath) : '';
     }
 
 }
