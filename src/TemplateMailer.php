@@ -38,11 +38,15 @@ class TemplateMailer {
      * @throws \MartinGold\Templater\Exceptions\TemplateNotFoundException
      */
     public function send(Message $message, string $templateName, array $params): string {
-        $html = $this->latteRenderer->render($templateName, $params);
-        $html = $this->latteRenderer->emogrify($html, $this->css);
+        $html = $this->renderMessage($templateName, $params);
         $message->setHtmlBody($html);
         $this->mailer->send($message);
         return $html;
+    }
+
+    public function renderMessage(string $templateName, array $params): string {
+        $html = $this->latteRenderer->render($templateName, $params);
+        return $this->latteRenderer->emogrify($html, $this->css);
     }
 
     public function setMailTemplatePath(string $mailTemplatePath): void{
