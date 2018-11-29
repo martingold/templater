@@ -2,11 +2,13 @@
 
 namespace MartinGold\Templater;
 
+use MartinGold\Templater\Helper\CssHelper;
+use MartinGold\Templater\Helper\PathHelper;
 use Nette\Bridges\ApplicationLatte\ILatteFactory;
 use Pelago\Emogrifier;
-use MartinGold\Templater\Exceptions\TemplateNotFoundException;
 
-class LatteRenderer {
+class LatteRenderer
+{
 
     /**
      * @var string
@@ -18,31 +20,46 @@ class LatteRenderer {
      */
     private $latteEngine;
 
-    public function __construct(ILatteFactory $ILatteFactory) {
+    /**
+     * @var string
+     */
+    private $css;
+
+    public function __construct(ILatteFactory $ILatteFactory)
+    {
         $this->latteEngine = $ILatteFactory->create();
     }
 
     /**
-     * @throws \MartinGold\Templater\Exceptions\TemplateNotFoundException
+     * @param mixed[] $params
      */
-    public function render($templateName, $params): string {
+    public function render(string $templateName, array $params): string
+    {
         $path = $this->templatePath . $templateName . '.latte';
-        if(!file_exists($path)) {
-            throw new TemplateNotFoundException($path);
+        if (!file_exists($path)) {
+            throw new \MartinGold\Templater\Exception\TemplateNotFoundException($path);
         }
-        return $this->latteEngine->renderToString($path, $params);
+        $html = $this->latteEngine->renderToString($path, $params);
+        return $this->emogrify($html);
     }
 
     /**
      * Inline external and <style> CSS to each element
      */
-    public function emogrify(string $html, ?string $css): string {
-        $emogrifier = new Emogrifier($html, $css);
-        return $emogrifier->emogrifyBodyContent();
+    public function emogrify(string $html): string
+    {
+        $emogrifier = new Emogrifier($html, $this->css);
+        return $emogrifier->emogrify();
     }
 
-    public function setTemplatePath(string $templatePath): void {
-        $this->templatePath = Utils::path($templatePath);
+    public function setTemplatePath(string $templatePath): void
+    {
+        $this->templatePath = PathHelper::path($templatePath);
+    }
+
+    public function setCssPath(?string $cssPath): void
+    {
+        $this->css = CssHelper::getCss($cssPath);
     }
 
 }

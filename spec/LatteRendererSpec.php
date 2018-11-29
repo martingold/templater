@@ -1,11 +1,11 @@
 <?php declare(strict_types=1);
 
-namespace MartinGold\Templater\Spec;
+namespace MartinGold\Templater\Helper\Spec;
 
 use Kahlan\Plugin\Double;
 use Latte\Engine;
-use MartinGold\Templater\Exceptions\TemplateNotFoundException;
-use MartinGold\Templater\LatteRenderer;
+use MartinGold\Templater\Helper\Exceptions\TemplateNotFoundException;
+use MartinGold\Templater\Helper\LatteRenderer;
 
 function getLatteRenderer(): LatteRenderer {
     /** @var \Nette\Bridges\ApplicationLatte\ILatteFactory $ILatteFactory */

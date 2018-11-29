@@ -1,8 +1,8 @@
 <?php declare(strict_types=1);
 
-namespace MartinGold\Templater\Spec\Exceptions;
+namespace MartinGold\Templater\Helper\Spec\Exceptions;
 
-use MartinGold\Templater\Exceptions\TemplateNotFoundException;
+use MartinGold\Templater\Helper\Exceptions\TemplateNotFoundException;
 
 describe('TemplateNotFoundException', function() {
 
