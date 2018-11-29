@@ -31,7 +31,7 @@
     },
     "scripts": {
         "phpcs": "php vendor/bin/phpcs --standard=vendor/martingold/coding-standard/src/coding-standard.xml --extensions=php --tab-width=4 -sp src",
-        "phpcbf": "php vendor/bin/phpcbf --standard=vendor/martingold/coding-standard/src/coding-standard.xml --extensions=php --tab-width=4 -sp app",
+        "phpcbf": "php vendor/bin/phpcbf --standard=vendor/martingold/coding-standard/src/coding-standard.xml --extensions=php --tab-width=4 -sp src",
         "lint": [
             "php vendor/bin/parallel-lint src",
             "@phpcs",
