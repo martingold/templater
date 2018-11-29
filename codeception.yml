@@ -1,0 +1,13 @@
+namespace: MartinGold/Templater/Test
+suites:
+    unit:
+        path: .
+
+settings:
+    shuffle: true
+    lint: true
+paths:
+    tests: test
+    output: test/_output
+    support: test/_support
+    data: test
