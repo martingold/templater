@@ -28,8 +28,8 @@ class PdfHandler
 
     public function __construct(LatteRenderer $latteRenderer)
     {
-        $this->mpdf = new Mpdf();
         $this->latteRenderer = $latteRenderer;
+        $this->mpdf = $this->initMpdf();
     }
 
     /**
@@ -89,6 +89,15 @@ class PdfHandler
     public function getMpdf(): Mpdf
     {
         return $this->mpdf;
+    }
+
+    private function initMpdf(): Mpdf
+    {
+        $mpdf = new Mpdf();
+
+        $mpdf->setAutoTopMargin = 'stretch';
+
+        return $mpdf;
     }
 
 }
