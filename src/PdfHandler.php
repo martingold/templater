@@ -5,7 +5,6 @@ namespace MartinGold\Templater;
 use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
 use Nette\SmartObject;
-use Tracy\Debugger;
 
 class PdfHandler
 {
@@ -87,7 +86,8 @@ class PdfHandler
         $this->pdfOutputPath = realpath(rtrim($pdfOutputPath, '/')) . '/';
     }
 
-    public function getMpdf(): Mpdf{
+    public function getMpdf(): Mpdf
+    {
         return $this->mpdf;
     }
 
