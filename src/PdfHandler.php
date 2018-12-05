@@ -5,6 +5,7 @@ namespace MartinGold\Templater;
 use Mpdf\Mpdf;
 use Mpdf\Output\Destination;
 use Nette\SmartObject;
+use Tracy\Debugger;
 
 class PdfHandler
 {
@@ -37,9 +38,15 @@ class PdfHandler
      */
     public function savePDF(PdfParams $pdfParams, array $params): string
     {
-        $html = $this->renderToString($pdfParams, $params);
-        $filePath = $this->pdfOutputPath . $pdfParams->getPath();
+        $html = $this->renderToString($pdfParams->getTemplateName(), $params);
         $this->mpdf->WriteHTML($html);
+
+        if ($pdfParams->getHeaderTemplateName() !== null) {
+            $header = $this->renderToString($pdfParams->getHeaderTemplateName(), $params);
+            $this->mpdf->SetHTMLHeader($header);
+        }
+
+        $filePath = $this->pdfOutputPath . $pdfParams->getPath();
         $this->mpdf->Output($filePath, Destination::FILE);
         return $filePath;
     }
@@ -49,7 +56,14 @@ class PdfHandler
      */
     public function downloadPDF(PdfParams $pdfParams, array $params): void
     {
-        $html = $this->renderToString($pdfParams, $params);
+        $html = $this->renderToString($pdfParams->getTemplateName(), $params);
+        $this->mpdf->showImageErrors = true;
+
+        if ($pdfParams->getHeaderTemplateName() !== null) {
+            $header = $this->renderToString($pdfParams->getHeaderTemplateName(), $params);
+            $this->mpdf->SetHTMLHeader($header);
+        }
+
         $this->mpdf->WriteHTML($html);
         $this->mpdf->Output($pdfParams->getPath(), Destination::DOWNLOAD);
     }
@@ -57,10 +71,10 @@ class PdfHandler
     /**
      * @param mixed[] $params
      */
-    public function renderToString(PdfParams $pdfParams, array $params): string
+    public function renderToString(string $templateName, array $params): string
     {
-        $params['templateName'] = basename($pdfParams->getTemplateName());
-        return $this->latteRenderer->render($pdfParams->getTemplateName(), $params);
+        $params['templateName'] = basename($templateName);
+        return $this->latteRenderer->render($templateName, $params);
     }
 
     public function getPdfPath(PdfParams $pdfParams): string
@@ -71,6 +85,10 @@ class PdfHandler
     public function setPdfOutputPath(string $pdfOutputPath): void
     {
         $this->pdfOutputPath = realpath(rtrim($pdfOutputPath, '/')) . '/';
+    }
+
+    public function getMpdf(): Mpdf{
+        return $this->mpdf;
     }
 
 }

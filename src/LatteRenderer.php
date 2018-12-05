@@ -49,7 +49,7 @@ class LatteRenderer
     public function emogrify(string $html): string
     {
         $emogrifier = new Emogrifier($html, $this->css);
-        return $emogrifier->emogrify();
+        return $emogrifier->emogrifyBodyContent();
     }
 
     public function setTemplatePath(string $templatePath): void

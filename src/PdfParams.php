@@ -19,6 +19,11 @@ class PdfParams
     private $templateName;
 
     /**
+     * @var ?string
+     */
+    private $headerTemplateName;
+
+    /**
      * @var string
      */
     private $namespace;
@@ -79,6 +84,17 @@ class PdfParams
     public function getTemplateName(): string
     {
         return $this->templateName;
+    }
+
+    public function getHeaderTemplateName(): ?string
+    {
+        return $this->headerTemplateName;
+    }
+
+    public function setHeaderTemplateName(?string $headerTemplateName): self
+    {
+        $this->headerTemplateName = $headerTemplateName;
+        return $this;
     }
 
     public function getIdentifier(): string

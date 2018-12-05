@@ -27,16 +27,15 @@ class TemplaterExtension extends \Nette\DI\CompilerExtension
         $this->validateConfig($this->defaults);
 
         $builder->addDefinition($this->prefix('templateMailer'))
-            ->setFactory('MartinGold\Templater\TemplateMailer')
-            ->addSetup('setCssPath', [self::BASE_DIR . $this->config['cssPath']]);
+            ->setFactory('MartinGold\Templater\TemplateMailer');
 
         $builder->addDefinition($this->prefix('pdf'))
             ->setFactory('MartinGold\Templater\PdfHandler')
-            ->addSetup('setPdfOutputPath', [self::BASE_DIR . $this->config['pdfOutputPath']])
-            ->addSetup('setCssPath', [self::BASE_DIR . $this->config['cssPath']]);
+            ->addSetup('setPdfOutputPath', [self::BASE_DIR . $this->config['pdfOutputPath']]);
 
         $builder->addDefinition($this->prefix('latteRenderer'))
             ->setFactory('MartinGold\Templater\LatteRenderer')
+            ->addSetup('setCssPath', [self::BASE_DIR . $this->config['cssPath']])
             ->addSetup('setTemplatePath', [self::BASE_DIR . $this->config['templatePath']]);
     }
 
