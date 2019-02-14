@@ -24,6 +24,11 @@ class PdfParams
     private $headerTemplateName;
 
     /**
+     * @var ?string
+     */
+    private $footerTemplateName;
+
+    /**
      * @var string
      */
     private $namespace;
@@ -94,6 +99,17 @@ class PdfParams
     public function setHeaderTemplateName(?string $headerTemplateName): self
     {
         $this->headerTemplateName = $headerTemplateName;
+        return $this;
+    }
+
+    public function getFooterTemplateName(): ?string
+    {
+        return $this->footerTemplateName;
+    }
+
+    public function setFooterTemplateName(?string $footerTemplateName): self
+    {
+        $this->footerTemplateName = $footerTemplateName;
         return $this;
     }
 

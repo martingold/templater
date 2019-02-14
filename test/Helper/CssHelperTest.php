@@ -2,7 +2,6 @@
 
 namespace MartinGold\Templater\Test\Helper;
 
-
 use MartinGold\Templater\Helper\CssHelper;
 
 class CssHelperTest extends \Codeception\Test\Unit

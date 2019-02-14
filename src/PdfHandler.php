@@ -45,6 +45,11 @@ class PdfHandler
             $this->mpdf->SetHTMLHeader($header);
         }
 
+        if ($pdfParams->getHeaderTemplateName() !== null) {
+            $footer = $this->renderToString($pdfParams->getFooterTemplateName(), $params);
+            $this->mpdf->SetHTMLFooter($footer);
+        }
+
         $filePath = $this->pdfOutputPath . $pdfParams->getPath();
         $this->mpdf->Output($filePath, Destination::FILE);
         return $filePath;
@@ -61,6 +66,11 @@ class PdfHandler
         if ($pdfParams->getHeaderTemplateName() !== null) {
             $header = $this->renderToString($pdfParams->getHeaderTemplateName(), $params);
             $this->mpdf->SetHTMLHeader($header);
+        }
+
+        if ($pdfParams->getHeaderTemplateName() !== null) {
+            $footer = $this->renderToString($pdfParams->getFooterTemplateName(), $params);
+            $this->mpdf->SetHTMLFooter($footer);
         }
 
         $this->mpdf->WriteHTML($html);
@@ -96,6 +106,7 @@ class PdfHandler
         $mpdf = new Mpdf();
 
         $mpdf->setAutoTopMargin = 'stretch';
+        $mpdf->setAutoBottomMargin = 'stretch';
 
         return $mpdf;
     }
